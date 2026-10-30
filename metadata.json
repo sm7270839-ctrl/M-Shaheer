@@ -1,0 +1,6 @@
+{
+  "name": "M.SHAHEER Luxury Fashion",
+  "description": "Premium responsive fashion e-commerce store with Men, Women, Children collections, VIP tier membership, reward points, and live admin management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
