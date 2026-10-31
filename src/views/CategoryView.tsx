@@ -11,6 +11,8 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
+import { MEN_SUBCATEGORIES, WOMEN_SUBCATEGORIES, CHILDREN_SUBCATEGORIES } from '../data/initialData';
+
 interface CategoryViewProps {
   viewType: 'men' | 'women' | 'children' | 'vip' | 'new-arrivals' | 'sale';
 }
@@ -30,53 +32,9 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ viewType }) => {
   const [selectedColorFilter, setSelectedColorFilter] = useState<string | null>(null);
 
   // Subcategories mapping
-  const menSubcategories = [
-    'All Men',
-    'Shirts',
-    'T-Shirts and Polos',
-    'Pants and Trousers',
-    'Jeans',
-    'Wrist Watches',
-    'Formal Shoes',
-    'Sneakers',
-    'Sandals and Slippers',
-    'Jackets and Hoodies',
-    'Traditional Clothes',
-    'Wallets',
-    'Belts',
-    'Fashion Accessories',
-  ];
-
-  const womenSubcategories = [
-    'All Women',
-    'Dresses',
-    'Frocks',
-    'Party Wear',
-    'Casual Wear',
-    'Traditional Suits',
-    'Night Suits',
-    'Wrist Watches',
-    'Sandals',
-    'Heels and Flats',
-    'Shoes',
-    'Handbags',
-    'Jewelry',
-    'Fashion Accessories',
-  ];
-
-  const childrenSubcategories = [
-    'All Children',
-    'Shirts and T-Shirts',
-    'Pants and Jeans',
-    "Girls' Dresses and Frocks",
-    "Children's Watches",
-    'Shoes and Sneakers',
-    'Sandals and Slippers',
-    'Jackets and Hoodies',
-    'Traditional Clothes',
-    'School Accessories',
-    'Other Kids Accessories',
-  ];
+  const menSubcategories = ['All Men', ...MEN_SUBCATEGORIES];
+  const womenSubcategories = ['All Women', ...WOMEN_SUBCATEGORIES];
+  const childrenSubcategories = ['All Children', ...CHILDREN_SUBCATEGORIES];
 
   // Titles & Headings
   const titles: Record<string, { title: string; subtitle: string; desc: string }> = {
@@ -138,7 +96,16 @@ export const CategoryView: React.FC<CategoryViewProps> = ({ viewType }) => {
 
     // Subcategory Filter
     if (activeSubcategoryFilter && !activeSubcategoryFilter.startsWith('All')) {
-      list = list.filter(p => p.subcategory.toLowerCase() === activeSubcategoryFilter.toLowerCase());
+      const cleanFilter = activeSubcategoryFilter.toLowerCase().replace(/^(men's|women's|children's)\s*/i, '').trim();
+      list = list.filter(p => {
+        const cleanSub = (p.subcategory || '').toLowerCase().replace(/^(men's|women's|children's)\s*/i, '').trim();
+        return (
+          p.subcategory.toLowerCase() === activeSubcategoryFilter.toLowerCase() ||
+          cleanSub === cleanFilter ||
+          cleanSub.includes(cleanFilter) ||
+          cleanFilter.includes(cleanSub)
+        );
+      });
     }
 
     // Color filter

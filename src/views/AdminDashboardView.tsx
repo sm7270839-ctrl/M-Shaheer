@@ -21,10 +21,41 @@ import {
   Eye,
   LogOut,
   RefreshCw,
-  Search
+  Search,
+  Upload,
+  Image as ImageIcon,
+  X
 } from 'lucide-react';
 import { Product, OrderStatus, CategoryType, VipTierLevel } from '../types';
 import { ImageWithFallback } from '../components/ImageWithFallback';
+import { MEN_SUBCATEGORIES, WOMEN_SUBCATEGORIES, CHILDREN_SUBCATEGORIES } from '../data/initialData';
+
+const AVAILABLE_BOUTIQUE_IMAGES = [
+  { label: "Men's Formal Shirt", url: "/images/men_formal_shirt.jpg" },
+  { label: "Men's Polo & Casual", url: "/images/product_men_casual_polo_denim.jpg" },
+  { label: "Men's Designer Jeans", url: "/images/men_designer_jeans.jpg" },
+  { label: "Men's Traditional Kurta", url: "/images/men_traditional_kurta.jpg" },
+  { label: "Men's Leather Jacket", url: "/images/men_leather_jacket.jpg" },
+  { label: "Men's Gold Chronograph Watch", url: "/images/product_luxury_watch_gold.jpg" },
+  { label: "Men's Oxford Leather Shoes", url: "/images/product_oxford_shoes_leather.jpg" },
+  { label: "Men's Peshawari Chappal", url: "/images/product_peshawari_chappal_leather.jpg" },
+  { label: "Men's Wallet & Belt", url: "/images/product_men_leather_wallet_belt.jpg" },
+  { label: "Women's Formal Dress", url: "/images/women_formal_dress.jpg" },
+  { label: "Women's Designer Frock", url: "/images/women_designer_frock.jpg" },
+  { label: "Women's Party Wear", url: "/images/women_party_wear.jpg" },
+  { label: "Women's Silk Night Suit", url: "/images/women_night_suit.jpg" },
+  { label: "Women's Luxury Watch", url: "/images/women_luxury_watch.jpg" },
+  { label: "Women's Leather Handbag", url: "/images/product_luxury_handbag_leather.jpg" },
+  { label: "Women's Bridal Jewelry", url: "/images/product_bridal_jewelry_gold.jpg" },
+  { label: "Women's Stiletto Heels", url: "/images/women_heels_shoes.jpg" },
+  { label: "Women's Velvet Evening Gown", url: "/images/product_women_evening_gown_velvet.jpg" },
+  { label: "Children's Boy Shirt", url: "/images/kids_boys_shirt.jpg" },
+  { label: "Children's Jeans & Tee", url: "/images/kids_jeans_tshirt.jpg" },
+  { label: "Children's Girl Frock", url: "/images/kids_girls_frock.jpg" },
+  { label: "Children's Smart Watch", url: "/images/kids_smart_watch.jpg" },
+  { label: "Children's Sneakers", url: "/images/kids_shoes_sneakers.jpg" },
+  { label: "Children's Winter Hoodie Jacket", url: "/images/kids_jacket_hoodie.jpg" },
+];
 
 export const AdminDashboardView: React.FC = () => {
   const {
@@ -66,20 +97,66 @@ export const AdminDashboardView: React.FC = () => {
 
   const [formName, setFormName] = useState('');
   const [formCategory, setFormCategory] = useState<CategoryType>('men');
-  const [formSubcategory, setFormSubcategory] = useState('Shirts');
+  const [formSubcategory, setFormSubcategory] = useState("Men's Shirts");
+  const [isCustomSubcategory, setIsCustomSubcategory] = useState(false);
   const [formPrice, setFormPrice] = useState<number>(8500);
   const [formOriginalPrice, setFormOriginalPrice] = useState<number>(10000);
   const [formStock, setFormStock] = useState<number>(20);
   const [formDescription, setFormDescription] = useState('');
   const [formSizes, setFormSizes] = useState('S, M, L, XL');
   const [formColors, setFormColors] = useState('Noir Black (#111111), Royal Gold (#d4af37)');
-  const [formImages, setFormImages] = useState('/images/category_men_collection.jpg');
+  const [formImages, setFormImages] = useState('/images/men_formal_shirt.jpg');
+  const [showImageGallery, setShowImageGallery] = useState(false);
   const [formFabric, setFormFabric] = useState('100% Egyptian Cotton');
   const [formIsFeatured, setFormIsFeatured] = useState(false);
   const [formIsNewArrival, setFormIsNewArrival] = useState(false);
   const [formIsBestSeller, setFormIsBestSeller] = useState(false);
   const [formIsVipExclusive, setFormIsVipExclusive] = useState(false);
   const [formMinVipTier, setFormMinVipTier] = useState<VipTierLevel>('Gold');
+
+  const availableSubcategories =
+    formCategory === 'men'
+      ? MEN_SUBCATEGORIES
+      : formCategory === 'women'
+      ? WOMEN_SUBCATEGORIES
+      : CHILDREN_SUBCATEGORIES;
+
+  const currentImagesList = formImages
+    .split(',')
+    .map(i => i.trim())
+    .filter(Boolean);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        const result = loadEvent.target?.result as string;
+        if (result) {
+          setFormImages(prev => (prev.trim() ? `${prev.trim()}, ${result}` : result));
+          showToast(`Uploaded picture: ${file.name}`);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleRemoveImageByIndex = (index: number) => {
+    const updated = currentImagesList.filter((_, i) => i !== index);
+    setFormImages(updated.join(', '));
+  };
+
+  const handleAddPresetImage = (url: string) => {
+    if (currentImagesList.includes(url)) {
+      showToast('Image already selected');
+      return;
+    }
+    const updated = [...currentImagesList, url];
+    setFormImages(updated.join(', '));
+    showToast('Photo added from boutique collection');
+  };
 
   // Points Adjustment Form
   const [pointsAdjustAmt, setPointsAdjustAmt] = useState<number>(250);
@@ -126,14 +203,16 @@ export const AdminDashboardView: React.FC = () => {
     setEditingProductId(null);
     setFormName('');
     setFormCategory('men');
-    setFormSubcategory('Shirts');
+    setFormSubcategory("Men's Shirts");
+    setIsCustomSubcategory(false);
     setFormPrice(9500);
     setFormOriginalPrice(11500);
     setFormStock(25);
     setFormDescription('Finely woven luxury fabric featuring impeccable hand-finished tailoring.');
     setFormSizes('S, M, L, XL');
     setFormColors('Classic Black (#18181b), Pure White (#ffffff)');
-    setFormImages('/images/category_men_collection.jpg');
+    setFormImages('/images/men_formal_shirt.jpg');
+    setShowImageGallery(false);
     setFormFabric('Egyptian Cotton & Silk');
     setFormIsFeatured(true);
     setFormIsNewArrival(true);
@@ -149,6 +228,8 @@ export const AdminDashboardView: React.FC = () => {
     setFormName(prod.name);
     setFormCategory(prod.category);
     setFormSubcategory(prod.subcategory);
+    const subcats: readonly string[] = prod.category === 'men' ? MEN_SUBCATEGORIES : prod.category === 'women' ? WOMEN_SUBCATEGORIES : CHILDREN_SUBCATEGORIES;
+    setIsCustomSubcategory(!subcats.includes(prod.subcategory));
     setFormPrice(prod.price);
     setFormOriginalPrice(prod.originalPrice || prod.price);
     setFormStock(prod.stock);
@@ -156,6 +237,7 @@ export const AdminDashboardView: React.FC = () => {
     setFormSizes(prod.sizes.join(', '));
     setFormColors(prod.colors.map(c => `${c.name} (${c.hex})`).join(', '));
     setFormImages(prod.images.join(', '));
+    setShowImageGallery(false);
     setFormFabric(prod.fabric || '');
     setFormIsFeatured(!!prod.isFeatured);
     setFormIsNewArrival(!!prod.isNewArrival);
@@ -1035,29 +1117,72 @@ export const AdminDashboardView: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] uppercase text-neutral-400 mb-1">Department</label>
+                  <label className="block text-[11px] uppercase text-neutral-400 mb-1">Department *</label>
                   <select
                     value={formCategory}
-                    onChange={(e) => setFormCategory(e.target.value as CategoryType)}
-                    className="w-full bg-neutral-900 border border-neutral-800 px-3 py-2 text-neutral-100 rounded focus:border-amber-400 focus:outline-none"
+                    onChange={(e) => {
+                      const newCat = e.target.value as CategoryType;
+                      setFormCategory(newCat);
+                      const subcats = newCat === 'men' ? MEN_SUBCATEGORIES : newCat === 'women' ? WOMEN_SUBCATEGORIES : CHILDREN_SUBCATEGORIES;
+                      setFormSubcategory(subcats[0]);
+                      setIsCustomSubcategory(false);
+                    }}
+                    className="w-full bg-neutral-900 border border-neutral-800 px-3 py-2 text-neutral-100 rounded focus:border-amber-400 focus:outline-none cursor-pointer"
                   >
-                    <option value="men">Men's Collection</option>
-                    <option value="women">Women's Collection</option>
-                    <option value="children">Children's Collection</option>
+                    <option value="men">Men's Department</option>
+                    <option value="women">Women's Department</option>
+                    <option value="children">Children's Department</option>
                   </select>
                 </div>
+
                 <div>
-                  <label className="block text-[11px] uppercase text-neutral-400 mb-1">Subcategory</label>
-                  <input
-                    type="text"
-                    value={formSubcategory}
-                    onChange={(e) => setFormSubcategory(e.target.value)}
-                    placeholder="e.g. Traditional Clothes, Tuxedo, Watches"
-                    className="w-full bg-neutral-900 border border-neutral-800 px-3 py-2 text-neutral-100 rounded focus:border-amber-400 focus:outline-none"
-                    required
-                  />
+                  <label className="block text-[11px] uppercase text-neutral-400 mb-1">Subcategory *</label>
+                  {!isCustomSubcategory ? (
+                    <div className="space-y-1.5">
+                      <select
+                        value={formSubcategory}
+                        onChange={(e) => {
+                          if (e.target.value === '__custom__') {
+                            setIsCustomSubcategory(true);
+                            setFormSubcategory('');
+                          } else {
+                            setFormSubcategory(e.target.value);
+                          }
+                        }}
+                        className="w-full bg-neutral-900 border border-neutral-800 px-3 py-2 text-neutral-100 rounded focus:border-amber-400 focus:outline-none cursor-pointer"
+                      >
+                        {availableSubcategories.map(sub => (
+                          <option key={sub} value={sub}>
+                            {sub}
+                          </option>
+                        ))}
+                        <option value="__custom__">+ Other / Custom Subcategory...</option>
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={formSubcategory}
+                        onChange={(e) => setFormSubcategory(e.target.value)}
+                        placeholder="Enter custom subcategory"
+                        className="flex-1 bg-neutral-900 border border-neutral-800 px-3 py-2 text-neutral-100 rounded focus:border-amber-400 focus:outline-none"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCustomSubcategory(false);
+                          setFormSubcategory(availableSubcategories[0]);
+                        }}
+                        className="px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-[10px] rounded"
+                      >
+                        Standard
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -1093,14 +1218,124 @@ export const AdminDashboardView: React.FC = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-[11px] uppercase text-neutral-400 mb-1">Image URLs (comma separated)</label>
-                <input
-                  type="text"
-                  value={formImages}
-                  onChange={(e) => setFormImages(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 px-3 py-2 text-neutral-100 rounded focus:border-amber-400 focus:outline-none"
-                />
+              {/* Product Picture Management Suite */}
+              <div className="space-y-3 p-3.5 bg-neutral-900/60 border border-neutral-800 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="block text-[11px] uppercase font-semibold text-amber-400">
+                      Product Images & Gallery ({currentImagesList.length} pictures)
+                    </label>
+                    <span className="text-[10px] text-neutral-400">
+                      First image is the primary cover picture. Upload from device or choose boutique presets.
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <label className="px-2.5 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-amber-300 text-xs rounded border border-neutral-700 hover:border-amber-500/40 cursor-pointer flex items-center gap-1.5 transition-colors">
+                      <Upload size={13} />
+                      <span>Upload File</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowImageGallery(!showImageGallery)}
+                      className={`px-2.5 py-1.5 text-xs rounded border transition-colors flex items-center gap-1.5 cursor-pointer ${
+                        showImageGallery
+                          ? 'bg-amber-500 text-neutral-950 font-semibold border-amber-400'
+                          : 'bg-neutral-800 text-neutral-300 border-neutral-700 hover:text-white'
+                      }`}
+                    >
+                      <ImageIcon size={13} />
+                      <span>{showImageGallery ? 'Hide Presets' : 'Boutique Presets'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Selected Images Preview Thumbnails */}
+                {currentImagesList.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {currentImagesList.map((imgUrl, idx) => (
+                      <div
+                        key={idx}
+                        className="relative group w-16 h-20 rounded border border-neutral-700 bg-neutral-950 overflow-hidden shrink-0"
+                      >
+                        <img
+                          src={imgUrl}
+                          alt={`Product preview ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = '/images/category_men_collection.jpg';
+                          }}
+                        />
+                        {idx === 0 && (
+                          <span className="absolute top-0.5 left-0.5 bg-amber-500 text-neutral-950 text-[8px] font-bold px-1 py-0.2 rounded-sm shadow">
+                            Cover
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImageByIndex(idx)}
+                          className="absolute -top-1 -right-1 bg-rose-600 hover:bg-rose-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow"
+                          title="Remove picture"
+                        >
+                          <X size={10} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Preset Image Picker Drawer */}
+                {showImageGallery && (
+                  <div className="p-3 bg-neutral-950 border border-neutral-800 rounded space-y-2 max-h-48 overflow-y-auto">
+                    <div className="text-[10px] text-neutral-400 font-medium uppercase tracking-wider">
+                      Click to add boutique high-resolution fashion photos:
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {AVAILABLE_BOUTIQUE_IMAGES.map((preset, pIdx) => {
+                        const isSelected = currentImagesList.includes(preset.url);
+                        return (
+                          <div
+                            key={pIdx}
+                            onClick={() => handleAddPresetImage(preset.url)}
+                            className={`flex items-center gap-2 p-1.5 rounded border text-[11px] cursor-pointer transition-all ${
+                              isSelected
+                                ? 'bg-amber-500/10 border-amber-500/60 text-amber-300'
+                                : 'bg-neutral-900 border-neutral-800 hover:border-neutral-700 text-neutral-300'
+                            }`}
+                          >
+                            <img
+                              src={preset.url}
+                              alt={preset.label}
+                              className="w-7 h-9 object-cover rounded bg-neutral-950 shrink-0"
+                            />
+                            <span className="truncate">{preset.label}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Direct Comma-Separated URLs Input */}
+                <div>
+                  <label className="block text-[10px] uppercase text-neutral-400 mb-1">
+                    Image URLs (Direct link / comma separated paths)
+                  </label>
+                  <input
+                    type="text"
+                    value={formImages}
+                    onChange={(e) => setFormImages(e.target.value)}
+                    placeholder="/images/men_formal_shirt.jpg, https://..."
+                    className="w-full bg-neutral-950 border border-neutral-800 px-3 py-1.5 text-neutral-200 text-xs rounded focus:border-amber-400 focus:outline-none font-mono"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">

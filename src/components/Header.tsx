@@ -15,6 +15,8 @@ import {
   BookOpen
 } from 'lucide-react';
 
+import { MEN_SUBCATEGORIES, WOMEN_SUBCATEGORIES, CHILDREN_SUBCATEGORIES } from '../data/initialData';
+
 export const Header: React.FC = () => {
   const {
     activeView,
@@ -36,37 +38,9 @@ export const Header: React.FC = () => {
   const [mobileWomenOpen, setMobileWomenOpen] = useState(false);
   const [mobileKidsOpen, setMobileKidsOpen] = useState(false);
 
-  const menSubcategories = [
-    'Shirts',
-    'T-Shirts and Polos',
-    'Pants and Trousers',
-    'Jeans',
-    'Wrist Watches',
-    'Formal Shoes',
-    'Sneakers',
-    'Sandals and Slippers',
-    'Jackets and Hoodies',
-    'Traditional Clothes',
-    'Wallets',
-    'Belts',
-    'Fashion Accessories',
-  ];
-
-  const womenSubcategories = [
-    'Dresses',
-    'Frocks',
-    'Party Wear',
-    'Casual Wear',
-    'Traditional Suits',
-    'Night Suits',
-    'Wrist Watches',
-    'Sandals',
-    'Heels and Flats',
-    'Shoes',
-    'Handbags',
-    'Jewelry',
-    'Fashion Accessories',
-  ];
+  const menSubcategories = MEN_SUBCATEGORIES;
+  const womenSubcategories = WOMEN_SUBCATEGORIES;
+  const childrenSubcategories = CHILDREN_SUBCATEGORIES;
 
   const navigateToCategory = (view: AppView, subcategory: string | null = null, gender: 'all' | 'boys' | 'girls' = 'all') => {
     setActiveSubcategoryFilter(subcategory);
@@ -243,31 +217,22 @@ export const Header: React.FC = () => {
                   <div className="text-[11px] font-semibold text-amber-400 mb-2 pb-1 border-b border-neutral-800 tracking-widest">
                     JUNIOR & KIDS COUTURE
                   </div>
-                  <div className="flex flex-col gap-1 text-xs normal-case text-neutral-300">
+                  <div className="grid grid-cols-1 gap-1 text-xs normal-case text-neutral-300 max-h-80 overflow-y-auto pr-1">
                     <button
                       onClick={() => navigateToCategory('children', null, 'all')}
-                      className="text-left py-1 hover:text-amber-400 font-medium"
+                      className="text-left py-1 hover:text-amber-400 hover:translate-x-1 transition-transform font-medium"
                     >
-                      All Children's Wear
+                      View All Children's Collection
                     </button>
-                    <div className="pt-2 text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
-                      Junior Boys
-                    </div>
-                    <button
-                      onClick={() => navigateToCategory('children', null, 'boys')}
-                      className="text-left py-1 text-neutral-400 hover:text-amber-300 pl-2"
-                    >
-                      Boys Suits, Kurtas & Shoes
-                    </button>
-                    <div className="pt-2 text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
-                      Junior Girls
-                    </div>
-                    <button
-                      onClick={() => navigateToCategory('children', null, 'girls')}
-                      className="text-left py-1 text-neutral-400 hover:text-amber-300 pl-2"
-                    >
-                      Girls Frocks, Anarkali & Flats
-                    </button>
+                    {childrenSubcategories.map(sub => (
+                      <button
+                        key={sub}
+                        onClick={() => navigateToCategory('children', sub)}
+                        className="text-left py-1 text-neutral-400 hover:text-amber-300 hover:translate-x-1 transition-all"
+                      >
+                        {sub}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -513,20 +478,17 @@ export const Header: React.FC = () => {
                       onClick={() => navigateToCategory('children', null, 'all')}
                       className="text-left text-amber-300 font-semibold"
                     >
-                      Shop All Children's
+                      Shop All Children's ({childrenSubcategories.length} Categories)
                     </button>
-                    <button
-                      onClick={() => navigateToCategory('children', null, 'boys')}
-                      className="text-left hover:text-white py-0.5"
-                    >
-                      Junior Boys
-                    </button>
-                    <button
-                      onClick={() => navigateToCategory('children', null, 'girls')}
-                      className="text-left hover:text-white py-0.5"
-                    >
-                      Junior Girls
-                    </button>
+                    {childrenSubcategories.map(sub => (
+                      <button
+                        key={sub}
+                        onClick={() => navigateToCategory('children', sub)}
+                        className="text-left hover:text-white py-0.5"
+                      >
+                        {sub}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>

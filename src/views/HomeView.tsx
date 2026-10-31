@@ -24,10 +24,12 @@ export const HomeView: React.FC = () => {
     vipTiers,
   } = useShop();
 
-  const featuredProducts = products.filter(p => p.isFeatured).slice(0, 8);
+  const trendingMen = products.filter(p => p.category === 'men' && !p.isVipExclusive).slice(0, 4);
+  const trendingWomen = products.filter(p => p.category === 'women' && !p.isVipExclusive).slice(0, 4);
+  const trendingChildren = products.filter(p => p.category === 'children' && !p.isVipExclusive).slice(0, 4);
   const newArrivals = products.filter(p => p.isNewArrival).slice(0, 4);
   const bestSellers = products.filter(p => p.isBestSeller).slice(0, 4);
-  const vipExclusives = products.filter(p => p.isVipExclusive);
+  const specialOffers = products.filter(p => (p.discountPercent && p.discountPercent > 0) || (p.originalPrice && p.originalPrice > p.price) || p.isSale).slice(0, 4);
 
   const navigateTo = (view: AppView, subcategory: string | null = null, gender: 'all' | 'boys' | 'girls' = 'all') => {
     setActiveSubcategoryFilter(subcategory);
@@ -195,35 +197,85 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Featured Couture Products Grid */}
+      {/* 3. Trending Men's Collection */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-neutral-800">
           <div>
             <span className="text-amber-400 font-serif tracking-[0.2em] text-xs uppercase font-semibold">
-              Signature Editions
+              Sartorial Masterpieces
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-neutral-100 mt-1">
-              Featured Products
+              Trending Men's Collection
             </h2>
           </div>
           <button
             onClick={() => navigateTo('men')}
-            className="text-xs font-semibold text-neutral-300 hover:text-amber-400 tracking-wider uppercase flex items-center gap-1.5 transition-colors"
+            className="text-xs font-semibold text-neutral-300 hover:text-amber-400 tracking-wider uppercase flex items-center gap-1.5 transition-colors cursor-pointer"
           >
-            <span>View All Pieces</span>
+            <span>Explore Men's Collection</span>
             <ArrowRight size={14} />
           </button>
         </div>
-
-        {/* Responsive Grid: 2 on mobile, 3 on tablet, 4 on desktop */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {featuredProducts.map(product => (
+          {trendingMen.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
 
-      {/* 4. VIP Privilege Club Banner & Membership Cards */}
+      {/* 4. Trending Women's Collection */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-neutral-800">
+          <div>
+            <span className="text-amber-400 font-serif tracking-[0.2em] text-xs uppercase font-semibold">
+              Atelier & Splendor
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-neutral-100 mt-1">
+              Trending Women's Collection
+            </h2>
+          </div>
+          <button
+            onClick={() => navigateTo('women')}
+            className="text-xs font-semibold text-neutral-300 hover:text-amber-400 tracking-wider uppercase flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <span>Explore Women's Collection</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {trendingWomen.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Trending Children's Collection */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-neutral-800">
+          <div>
+            <span className="text-amber-400 font-serif tracking-[0.2em] text-xs uppercase font-semibold">
+              Junior Couture
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-neutral-100 mt-1">
+              Trending Children's Collection
+            </h2>
+          </div>
+          <button
+            onClick={() => navigateTo('children')}
+            className="text-xs font-semibold text-neutral-300 hover:text-amber-400 tracking-wider uppercase flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <span>Explore Children's Collection</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {trendingChildren.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* VIP Privilege Club Banner & Membership Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-xl overflow-hidden border border-amber-500/30 p-8 sm:p-12 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
           <div className="max-w-3xl space-y-4 mb-10">
@@ -282,8 +334,8 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. New Arrivals & Best Sellers Dual Sections */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* New Arrivals, Best Sellers & Special Offers */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* New Arrivals */}
         <div>
           <div className="flex items-center justify-between mb-6 pb-3 border-b border-neutral-800">
@@ -297,9 +349,9 @@ export const HomeView: React.FC = () => {
             </div>
             <button
               onClick={() => navigateTo('new-arrivals')}
-              className="text-xs font-semibold text-neutral-400 hover:text-amber-400 uppercase tracking-wider flex items-center gap-1"
+              className="text-xs font-semibold text-neutral-400 hover:text-amber-400 uppercase tracking-wider flex items-center gap-1 transition-colors"
             >
-              <span>See All</span>
+              <span>Explore New Arrivals</span>
               <ArrowRight size={13} />
             </button>
           </div>
@@ -323,14 +375,40 @@ export const HomeView: React.FC = () => {
             </div>
             <button
               onClick={() => navigateTo('men')}
-              className="text-xs font-semibold text-neutral-400 hover:text-amber-400 uppercase tracking-wider flex items-center gap-1"
+              className="text-xs font-semibold text-neutral-400 hover:text-amber-400 uppercase tracking-wider flex items-center gap-1 transition-colors"
             >
-              <span>See All</span>
+              <span>Explore Best Sellers</span>
               <ArrowRight size={13} />
             </button>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {bestSellers.map(prod => (
+              <ProductCard key={prod.id} product={prod} />
+            ))}
+          </div>
+        </div>
+
+        {/* Special Offers */}
+        <div>
+          <div className="flex items-center justify-between mb-6 pb-3 border-b border-neutral-800">
+            <div>
+              <span className="text-rose-400 font-serif tracking-widest text-xs uppercase font-semibold">
+                Privilege Reductions
+              </span>
+              <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-wider text-neutral-100">
+                Special Offers & Archive Sale
+              </h3>
+            </div>
+            <button
+              onClick={() => navigateTo('sale')}
+              className="text-xs font-semibold text-rose-400 hover:text-rose-300 uppercase tracking-wider flex items-center gap-1 transition-colors"
+            >
+              <span>Explore Special Offers</span>
+              <ArrowRight size={13} />
+            </button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {specialOffers.map(prod => (
               <ProductCard key={prod.id} product={prod} />
             ))}
           </div>
