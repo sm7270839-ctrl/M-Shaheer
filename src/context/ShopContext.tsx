@@ -145,10 +145,64 @@ interface ShopContextType {
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
+function migratePath(path: string): string {
+  if (typeof path !== 'string') return path;
+  if (path.startsWith('/src/assets/images/')) {
+    const filename = path.replace('/src/assets/images/', '');
+    if (filename.startsWith('hero_luxury_fashion_banner')) return '/images/hero_luxury_fashion_banner.jpg';
+    if (filename.startsWith('category_men_collection')) return '/images/category_men_collection.jpg';
+    if (filename.startsWith('category_women_collection')) return '/images/category_women_collection.jpg';
+    if (filename.startsWith('category_children_collection')) return '/images/category_children_collection.jpg';
+    return `/images/${filename}`;
+  }
+  return path;
+}
+
 function loadStorage<T>(key: string, fallback: T): T {
   try {
     const item = localStorage.getItem(`mshaheer_${key}`);
-    return item ? JSON.parse(item) : fallback;
+    if (!item) return fallback;
+    const parsed = JSON.parse(item);
+
+    // Automatically migrate legacy image paths from prior visits
+    if (key === 'products' && Array.isArray(parsed)) {
+      return parsed.map((p: any) => ({
+        ...p,
+        images: Array.isArray(p.images) ? p.images.map(migratePath) : p.images,
+      })) as unknown as T;
+    }
+
+    if (key === 'homepageConfig' && parsed && typeof parsed === 'object') {
+      const cfg = { ...parsed };
+      if (cfg.heroBanner) {
+        cfg.heroBanner = {
+          ...cfg.heroBanner,
+          desktopImage: migratePath(cfg.heroBanner.desktopImage),
+          mobileImage: migratePath(cfg.heroBanner.mobileImage),
+        };
+      }
+      if (cfg.categoryBanners) {
+        cfg.categoryBanners = {
+          ...cfg.categoryBanners,
+          men: migratePath(cfg.categoryBanners.men),
+          women: migratePath(cfg.categoryBanners.women),
+          children: migratePath(cfg.categoryBanners.children),
+        };
+      }
+      return cfg as unknown as T;
+    }
+
+    if (key === 'cart' && Array.isArray(parsed)) {
+      return parsed.map((item: any) => ({
+        ...item,
+        product: {
+          ...item.product,
+          images: Array.isArray(item.product?.images) ? item.product.images.map(migratePath) : item.product?.images,
+        },
+      })) as unknown as T;
+    }
+
+    return parsed;
   } catch (e) {
     console.error(`Error loading ${key} from storage:`, e);
     return fallback;

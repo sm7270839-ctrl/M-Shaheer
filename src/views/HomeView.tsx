@@ -1,6 +1,7 @@
 import React from 'react';
 import { useShop, AppView } from '../context/ShopContext';
 import { ProductCard } from '../components/ProductCard';
+import { ImageWithFallback } from '../components/ImageWithFallback';
 import {
   ArrowRight,
   Crown,
@@ -41,9 +42,10 @@ export const HomeView: React.FC = () => {
       {/* 1. Large Premium Fashion Hero Banner */}
       <section className="relative min-h-[580px] lg:min-h-[680px] flex items-center justify-center overflow-hidden bg-neutral-950 border-b border-neutral-800">
         <div className="absolute inset-0 z-0">
-          <img
+          <ImageWithFallback
             src={homepageConfig.heroBannerImage}
             alt="M.SHAHEER Luxury Haute Couture"
+            fallbackCategory="men"
             className="w-full h-full object-cover object-center filter brightness-[0.65] contrast-[1.1]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-neutral-950/70" />
@@ -109,9 +111,10 @@ export const HomeView: React.FC = () => {
             onClick={() => navigateTo('men')}
             className="group relative h-[420px] rounded overflow-hidden border border-neutral-800 hover:border-amber-500/50 transition-all duration-500 cursor-pointer bg-neutral-900"
           >
-            <img
+            <ImageWithFallback
               src={homepageConfig.menBannerImage}
               alt="Men's Luxury Collection"
+              fallbackCategory="men"
               className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
@@ -137,9 +140,10 @@ export const HomeView: React.FC = () => {
             onClick={() => navigateTo('women')}
             className="group relative h-[420px] rounded overflow-hidden border border-neutral-800 hover:border-amber-500/50 transition-all duration-500 cursor-pointer bg-neutral-900"
           >
-            <img
+            <ImageWithFallback
               src={homepageConfig.womenBannerImage}
               alt="Women's Luxury Collection"
+              fallbackCategory="women"
               className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
@@ -165,9 +169,10 @@ export const HomeView: React.FC = () => {
             onClick={() => navigateTo('children')}
             className="group relative h-[420px] rounded overflow-hidden border border-neutral-800 hover:border-amber-500/50 transition-all duration-500 cursor-pointer bg-neutral-900"
           >
-            <img
+            <ImageWithFallback
               src={homepageConfig.childrenBannerImage}
               alt="Children's Luxury Collection"
+              fallbackCategory="children"
               className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />

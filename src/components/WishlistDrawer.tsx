@@ -1,6 +1,7 @@
 import React from 'react';
 import { useShop } from '../context/ShopContext';
 import { X, Heart, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
+import { ImageWithFallback } from './ImageWithFallback';
 
 export const WishlistDrawer: React.FC = () => {
   const {
@@ -63,15 +64,20 @@ export const WishlistDrawer: React.FC = () => {
           ) : (
             wishlistedProducts.map(product => (
               <div key={product.id} className="pt-4 first:pt-0 flex gap-4">
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
+                <div
                   onClick={() => {
                     setIsWishlistDrawerOpen(false);
                     openProduct(product.id);
                   }}
-                  className="w-20 h-24 object-cover object-top bg-neutral-900 rounded shrink-0 cursor-pointer border border-neutral-800"
-                />
+                  className="w-20 h-24 rounded shrink-0 cursor-pointer overflow-hidden border border-neutral-800"
+                >
+                  <ImageWithFallback
+                    src={product.images[0]}
+                    alt={product.name}
+                    fallbackCategory={product.category === 'men' ? 'men' : product.category === 'women' ? 'women' : 'children'}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between gap-1">

@@ -24,6 +24,7 @@ import {
   Search
 } from 'lucide-react';
 import { Product, OrderStatus, CategoryType, VipTierLevel } from '../types';
+import { ImageWithFallback } from '../components/ImageWithFallback';
 
 export const AdminDashboardView: React.FC = () => {
   const {
@@ -132,7 +133,7 @@ export const AdminDashboardView: React.FC = () => {
     setFormDescription('Finely woven luxury fabric featuring impeccable hand-finished tailoring.');
     setFormSizes('S, M, L, XL');
     setFormColors('Classic Black (#18181b), Pure White (#ffffff)');
-    setFormImages('/src/assets/images/category_men_collection_1793383735508.jpg');
+    setFormImages('/images/category_men_collection.jpg');
     setFormFabric('Egyptian Cotton & Silk');
     setFormIsFeatured(true);
     setFormIsNewArrival(true);
@@ -583,10 +584,11 @@ export const AdminDashboardView: React.FC = () => {
                 {filteredProducts.map(p => (
                   <tr key={p.id} className="hover:bg-neutral-900/60">
                     <td className="p-3 flex items-center gap-3">
-                      <img
+                      <ImageWithFallback
                         src={p.images[0]}
                         alt={p.name}
-                        className="w-10 h-12 object-cover rounded bg-neutral-950 border border-neutral-800"
+                        category={p.category}
+                        className="w-10 h-12 object-cover rounded bg-neutral-950 border border-neutral-800 shrink-0"
                       />
                       <div className="min-w-0">
                         <div className="font-semibold text-neutral-100 truncate max-w-xs">{p.name}</div>

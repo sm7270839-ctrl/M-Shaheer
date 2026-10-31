@@ -16,6 +16,7 @@ import {
   Truck
 } from 'lucide-react';
 import { VipTierLevel } from '../types';
+import { ImageWithFallback } from '../components/ImageWithFallback';
 
 export const AccountDashboardView: React.FC = () => {
   const {
@@ -296,10 +297,11 @@ export const AccountDashboardView: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                     {order.items.map(item => (
                       <div key={item.id} className="flex items-center gap-3">
-                        <img
+                        <ImageWithFallback
                           src={item.product.images[0]}
                           alt={item.product.name}
-                          className="w-12 h-14 object-cover rounded bg-neutral-950 border border-neutral-800"
+                          category={item.product.category}
+                          className="w-12 h-14 object-cover rounded bg-neutral-950 border border-neutral-800 shrink-0"
                         />
                         <div>
                           <div className="font-medium text-neutral-200 line-clamp-1">{item.product.name}</div>

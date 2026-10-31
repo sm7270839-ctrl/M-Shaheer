@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
 import { ProductCard } from '../components/ProductCard';
+import { ImageWithFallback } from '../components/ImageWithFallback';
 import {
   Heart,
   ShoppingBag,
@@ -103,18 +104,19 @@ export const ProductDetailView: React.FC = () => {
         {/* Gallery: 7 Columns */}
         <div className="lg:col-span-7 space-y-4">
           <div className="relative aspect-[3/4] w-full bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800">
-            <img
+            <ImageWithFallback
               src={product.images[activeImageIndex] || product.images[0]}
               alt={product.name}
+              fallbackCategory={product.category === 'men' ? 'men' : product.category === 'women' ? 'women' : 'children'}
               className="w-full h-full object-cover object-top transition-all duration-300"
             />
             {product.discountPercent && (
-              <span className="absolute top-4 left-4 bg-rose-950 text-rose-300 border border-rose-800/40 text-xs font-semibold px-3 py-1 rounded">
+              <span className="absolute top-4 left-4 bg-rose-950 text-rose-300 border border-rose-800/40 text-xs font-semibold px-3 py-1 rounded z-10">
                 -{product.discountPercent}% OFF
               </span>
             )}
             {product.isVipExclusive && (
-              <span className="absolute top-4 right-4 bg-neutral-950/90 text-amber-400 border border-amber-500/40 text-xs font-semibold px-3 py-1 rounded flex items-center gap-1.5">
+              <span className="absolute top-4 right-4 bg-neutral-950/90 text-amber-400 border border-amber-500/40 text-xs font-semibold px-3 py-1 rounded flex items-center gap-1.5 z-10">
                 <Crown size={14} />
                 <span>{product.minVipTier || 'VIP'} EXCLUSIVE</span>
               </span>
@@ -134,7 +136,7 @@ export const ProductDetailView: React.FC = () => {
                       : 'border-neutral-800 opacity-60 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} alt="Angle thumbnail" className="w-full h-full object-cover" />
+                  <ImageWithFallback src={img} alt="Angle thumbnail" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

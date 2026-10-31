@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useShop } from '../context/ShopContext';
 import { Search, X, ArrowRight, SlidersHorizontal } from 'lucide-react';
+import { ImageWithFallback } from './ImageWithFallback';
 
 export const SearchModal: React.FC = () => {
   const {
@@ -134,9 +135,10 @@ export const SearchModal: React.FC = () => {
                   }}
                   className="flex gap-3 p-2 bg-neutral-900/50 hover:bg-neutral-900 border border-neutral-800/80 hover:border-amber-500/40 rounded transition-all cursor-pointer group"
                 >
-                  <img
+                  <ImageWithFallback
                     src={product.images[0]}
                     alt={product.name}
+                    fallbackCategory={product.category === 'men' ? 'men' : product.category === 'women' ? 'women' : 'children'}
                     className="w-16 h-20 object-cover object-top rounded shrink-0 bg-neutral-950 border border-neutral-800"
                   />
                   <div className="flex-1 flex flex-col justify-between py-0.5">

@@ -15,6 +15,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Order } from '../types';
+import { ImageWithFallback } from '../components/ImageWithFallback';
 
 export const CheckoutView: React.FC = () => {
   const {
@@ -210,10 +211,11 @@ export const CheckoutView: React.FC = () => {
             {confirmedOrder.items.map(item => (
               <div key={item.id} className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-3">
-                  <img
+                  <ImageWithFallback
                     src={item.product.images[0]}
                     alt={item.product.name}
-                    className="w-12 h-14 object-cover rounded bg-neutral-950 border border-neutral-800"
+                    fallbackCategory={item.product.category === 'men' ? 'men' : item.product.category === 'women' ? 'women' : 'children'}
+                    className="w-12 h-14 object-cover rounded bg-neutral-950 border border-neutral-800 shrink-0"
                   />
                   <div>
                     <div className="font-medium text-neutral-200">{item.product.name}</div>
@@ -518,9 +520,10 @@ export const CheckoutView: React.FC = () => {
             <div className="divide-y divide-neutral-900 max-h-64 overflow-y-auto space-y-3">
               {cart.map(item => (
                 <div key={item.id} className="pt-3 first:pt-0 flex items-center gap-3">
-                  <img
+                  <ImageWithFallback
                     src={item.product.images[0]}
                     alt={item.product.name}
+                    fallbackCategory={item.product.category === 'men' ? 'men' : item.product.category === 'women' ? 'women' : 'children'}
                     className="w-14 h-16 object-cover rounded bg-neutral-950 border border-neutral-800 shrink-0"
                   />
                   <div className="flex-1 min-w-0">

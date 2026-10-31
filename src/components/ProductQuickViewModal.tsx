@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
 import { X, Heart, ShoppingBag, Crown, Check, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
+import { ImageWithFallback } from './ImageWithFallback';
 
 export const ProductQuickViewModal: React.FC = () => {
   const {
@@ -59,13 +60,14 @@ export const ProductQuickViewModal: React.FC = () => {
         {/* Left Column: Image Gallery */}
         <div className="md:w-1/2 p-6 flex flex-col justify-between bg-neutral-900/40 border-b md:border-b-0 md:border-r border-neutral-800">
           <div className="relative aspect-[3/4] w-full rounded overflow-hidden bg-neutral-900">
-            <img
+            <ImageWithFallback
               src={quickViewProduct.images[activeImageIndex] || quickViewProduct.images[0]}
               alt={quickViewProduct.name}
+              fallbackCategory={quickViewProduct.category === 'men' ? 'men' : quickViewProduct.category === 'women' ? 'women' : 'children'}
               className="w-full h-full object-cover object-top"
             />
             {quickViewProduct.discountPercent && (
-              <span className="absolute top-3 left-3 bg-rose-950 text-rose-300 border border-rose-800/40 text-xs font-semibold px-2.5 py-1 tracking-wider rounded-sm">
+              <span className="absolute top-3 left-3 bg-rose-950 text-rose-300 border border-rose-800/40 text-xs font-semibold px-2.5 py-1 tracking-wider rounded-sm z-10">
                 -{quickViewProduct.discountPercent}% OFF
               </span>
             )}
@@ -81,7 +83,7 @@ export const ProductQuickViewModal: React.FC = () => {
                     activeImageIndex === i ? 'border-amber-400' : 'border-neutral-800 opacity-60 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
+                  <ImageWithFallback src={img} alt="thumbnail" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

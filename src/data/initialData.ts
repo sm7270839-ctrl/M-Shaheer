@@ -5,10 +5,10 @@ export const INITIAL_HOMEPAGE_CONFIG: HomepageConfig = {
   heroHeadline: 'BESPOKE LUXURY COUTURE',
   heroSubtext: 'The Definitive Collection of Haute Couture, Traditional Craftsmanship & Contemporary Tailoring for Men, Women & Children.',
   heroCtaText: 'EXPLORE THE COLLECTION',
-  heroBannerImage: '/src/assets/images/hero_luxury_fashion_banner_1793383735297.jpg',
-  menBannerImage: '/src/assets/images/category_men_collection_1793383735508.jpg',
-  womenBannerImage: '/src/assets/images/category_women_collection_1793383736905.jpg',
-  childrenBannerImage: '/src/assets/images/category_children_collection_1793383736910.jpg',
+  heroBannerImage: '/images/hero_luxury_fashion_banner.jpg',
+  menBannerImage: '/images/category_men_collection.jpg',
+  womenBannerImage: '/images/category_women_collection.jpg',
+  childrenBannerImage: '/images/category_children_collection.jpg',
   vipHeadline: 'THE M.SHAHEER VIP PRIVILEGE CLUB',
   vipSubtext: 'Unlock private salons, member-exclusive couture archives, multiplier reward points and bespoke concierge tailoring.',
   storePhone: '+92 300 1234567',
@@ -79,8 +79,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 45000,
     discountPercent: 14,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg',
-      '/src/assets/images/hero_luxury_fashion_banner_1793383735297.jpg'
+      '/images/category_men_collection.jpg',
+      '/images/hero_luxury_fashion_banner.jpg'
     ],
     rating: 4.9,
     reviewCount: 38,
@@ -105,7 +105,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 22500,
     discountPercent: 16,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/category_men_collection.jpg'
     ],
     rating: 5.0,
     reviewCount: 64,
@@ -131,7 +131,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 58000,
     discountPercent: 15,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_luxury_watch_gold.jpg'
     ],
     rating: 4.8,
     reviewCount: 22,
@@ -155,7 +155,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 10500,
     discountPercent: 15,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/category_men_collection.jpg'
     ],
     rating: 4.7,
     reviewCount: 45,
@@ -180,7 +180,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 7500,
     discountPercent: 15,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_men_casual_polo_denim.jpg'
     ],
     rating: 4.9,
     reviewCount: 51,
@@ -205,7 +205,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 16000,
     discountPercent: 16,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/category_men_collection.jpg'
     ],
     rating: 4.8,
     reviewCount: 29,
@@ -229,7 +229,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 13900,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_men_casual_polo_denim.jpg'
     ],
     rating: 4.9,
     reviewCount: 31,
@@ -252,7 +252,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 28500,
     discountPercent: 14,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_oxford_shoes_leather.jpg'
     ],
     rating: 5.0,
     reviewCount: 19,
@@ -274,7 +274,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 19000,
     discountPercent: 13,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_oxford_shoes_leather.jpg'
     ],
     rating: 4.7,
     reviewCount: 42,
@@ -296,7 +296,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 12000,
     discountPercent: 18,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_peshawari_chappal_leather.jpg'
     ],
     rating: 4.9,
     reviewCount: 77,
@@ -319,7 +319,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 6200,
     discountPercent: 21,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_men_leather_wallet_belt.jpg'
     ],
     rating: 4.9,
     reviewCount: 68,
@@ -341,7 +341,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 7000,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_men_leather_wallet_belt.jpg'
     ],
     rating: 4.8,
     reviewCount: 39,
@@ -362,7 +362,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 5500,
     discountPercent: 18,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_bridal_jewelry_gold.jpg'
     ],
     rating: 5.0,
     reviewCount: 15,
@@ -385,8 +385,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 92000,
     discountPercent: 15,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg',
-      '/src/assets/images/hero_luxury_fashion_banner_1793383735297.jpg'
+      '/images/category_women_collection.jpg',
+      '/images/hero_luxury_fashion_banner.jpg'
     ],
     rating: 5.0,
     reviewCount: 28,
@@ -412,7 +412,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 26000,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/category_women_collection.jpg'
     ],
     rating: 4.9,
     reviewCount: 84,
@@ -439,8 +439,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 38000,
     discountPercent: 16,
     images: [
-      '/src/assets/images/hero_luxury_fashion_banner_1793383735297.jpg',
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_women_evening_gown_velvet.jpg',
+      '/images/hero_luxury_fashion_banner.jpg'
     ],
     rating: 4.8,
     reviewCount: 33,
@@ -464,7 +464,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 29000,
     discountPercent: 15,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/category_women_collection.jpg'
     ],
     rating: 4.9,
     reviewCount: 47,
@@ -487,7 +487,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 34000,
     discountPercent: 16,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_luxury_handbag_leather.jpg'
     ],
     rating: 5.0,
     reviewCount: 36,
@@ -511,7 +511,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 42000,
     discountPercent: 14,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_bridal_jewelry_gold.jpg'
     ],
     rating: 4.9,
     reviewCount: 52,
@@ -533,7 +533,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 18000,
     discountPercent: 14,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/category_women_collection.jpg'
     ],
     rating: 4.7,
     reviewCount: 23,
@@ -555,7 +555,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 15000,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_oxford_shoes_leather.jpg'
     ],
     rating: 4.8,
     reviewCount: 41,
@@ -577,7 +577,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 10500,
     discountPercent: 19,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/category_women_collection.jpg'
     ],
     rating: 4.8,
     reviewCount: 60,
@@ -602,7 +602,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 12500,
     discountPercent: 22,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_women_evening_gown_velvet.jpg'
     ],
     rating: 4.9,
     reviewCount: 38,
@@ -625,7 +625,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 40000,
     discountPercent: 14,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_luxury_watch_gold.jpg'
     ],
     rating: 4.9,
     reviewCount: 29,
@@ -647,7 +647,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 4000,
     discountPercent: 20,
     images: [
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_bridal_jewelry_gold.jpg'
     ],
     rating: 4.8,
     reviewCount: 46,
@@ -672,7 +672,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 19500,
     discountPercent: 15,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 4.9,
     reviewCount: 34,
@@ -697,7 +697,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 17500,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 5.0,
     reviewCount: 42,
@@ -724,7 +724,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 13800,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 4.9,
     reviewCount: 56,
@@ -748,7 +748,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 16500,
     discountPercent: 16,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 4.8,
     reviewCount: 31,
@@ -771,7 +771,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 5500,
     discountPercent: 18,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 4.7,
     reviewCount: 27,
@@ -795,7 +795,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 5800,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 4.8,
     reviewCount: 35,
@@ -818,7 +818,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 7800,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/category_children_collection.jpg'
     ],
     rating: 4.9,
     reviewCount: 44,
@@ -841,7 +841,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 9500,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/product_oxford_shoes_leather.jpg'
     ],
     rating: 4.8,
     reviewCount: 19,
@@ -864,7 +864,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 6500,
     discountPercent: 20,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/product_luxury_watch_gold.jpg'
     ],
     rating: 4.7,
     reviewCount: 15,
@@ -886,7 +886,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 8200,
     discountPercent: 17,
     images: [
-      '/src/assets/images/category_children_collection_1793383736910.jpg'
+      '/images/product_luxury_handbag_leather.jpg'
     ],
     rating: 5.0,
     reviewCount: 38,
@@ -910,8 +910,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 110000,
     discountPercent: 14,
     images: [
-      '/src/assets/images/hero_luxury_fashion_banner_1793383735297.jpg',
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/hero_luxury_fashion_banner.jpg',
+      '/images/category_men_collection.jpg'
     ],
     rating: 5.0,
     reviewCount: 14,
@@ -935,7 +935,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 160000,
     discountPercent: 16,
     images: [
-      '/src/assets/images/category_men_collection_1793383735508.jpg'
+      '/images/product_luxury_watch_gold.jpg'
     ],
     rating: 5.0,
     reviewCount: 9,
@@ -958,8 +958,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     originalPrice: 135000,
     discountPercent: 15,
     images: [
-      '/src/assets/images/hero_luxury_fashion_banner_1793383735297.jpg',
-      '/src/assets/images/category_women_collection_1793383736905.jpg'
+      '/images/product_women_evening_gown_velvet.jpg',
+      '/images/hero_luxury_fashion_banner.jpg'
     ],
     rating: 5.0,
     reviewCount: 12,
@@ -997,7 +997,7 @@ export const INITIAL_USER: CustomerUser = {
       id: 'pt-2',
       date: '2026-10-22',
       amount: 750,
-      reason: 'Gold Elite Tier Bonus & Diwali Celebrations',
+      reason: 'Gold Elite Tier Bonus & Celebrations',
       type: 'earned'
     }
   ],

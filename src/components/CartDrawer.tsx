@@ -1,6 +1,7 @@
 import React from 'react';
 import { useShop } from '../context/ShopContext';
 import { X, Plus, Minus, Trash2, ArrowRight, ShoppingBag, ShieldCheck, Truck } from 'lucide-react';
+import { ImageWithFallback } from './ImageWithFallback';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -94,9 +95,10 @@ export const CartDrawer: React.FC = () => {
           ) : (
             cart.map(item => (
               <div key={item.id} className="pt-4 first:pt-0 flex gap-4">
-                <img
+                <ImageWithFallback
                   src={item.product.images[0]}
                   alt={item.product.name}
+                  fallbackCategory={item.product.category === 'men' ? 'men' : item.product.category === 'women' ? 'women' : 'children'}
                   className="w-20 h-24 object-cover object-top bg-neutral-900 rounded shrink-0 border border-neutral-800"
                 />
                 <div className="flex-1 flex flex-col justify-between">

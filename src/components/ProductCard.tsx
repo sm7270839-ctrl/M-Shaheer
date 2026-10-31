@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Product } from '../types';
 import { useShop } from '../context/ShopContext';
 import { Heart, Eye, ShoppingBag, Crown, Check } from 'lucide-react';
+import { ImageWithFallback } from './ImageWithFallback';
 
 interface ProductCardProps {
   product: Product;
@@ -49,12 +50,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         onClick={() => openProduct(product.id)}
         className="relative w-full aspect-[3/4] bg-neutral-900 cursor-pointer overflow-hidden"
       >
-        <img
+        <ImageWithFallback
           src={product.images[0]}
           alt={product.name}
-          referrerPolicy="no-referrer"
+          fallbackCategory={product.category === 'men' ? 'men' : product.category === 'women' ? 'women' : 'children'}
           className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
         />
 
         {/* Gradient scrim for image contrast */}
