@@ -174,6 +174,10 @@ function loadStorage<T>(key: string, fallback: T): T {
 
     if (key === 'homepageConfig' && parsed && typeof parsed === 'object') {
       const cfg = { ...parsed };
+      if (cfg.heroBannerImage) cfg.heroBannerImage = migratePath(cfg.heroBannerImage);
+      if (cfg.menBannerImage) cfg.menBannerImage = migratePath(cfg.menBannerImage);
+      if (cfg.womenBannerImage) cfg.womenBannerImage = migratePath(cfg.womenBannerImage);
+      if (cfg.childrenBannerImage) cfg.childrenBannerImage = migratePath(cfg.childrenBannerImage);
       if (cfg.heroBanner) {
         cfg.heroBanner = {
           ...cfg.heroBanner,
@@ -199,6 +203,21 @@ function loadStorage<T>(key: string, fallback: T): T {
           ...item.product,
           images: Array.isArray(item.product?.images) ? item.product.images.map(migratePath) : item.product?.images,
         },
+      })) as unknown as T;
+    }
+
+    if (key === 'orders' && Array.isArray(parsed)) {
+      return parsed.map((order: any) => ({
+        ...order,
+        items: Array.isArray(order.items)
+          ? order.items.map((item: any) => ({
+              ...item,
+              product: {
+                ...item.product,
+                images: Array.isArray(item.product?.images) ? item.product.images.map(migratePath) : item.product?.images,
+              },
+            }))
+          : order.items,
       })) as unknown as T;
     }
 

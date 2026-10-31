@@ -73,7 +73,7 @@ export const AdminDashboardView: React.FC = () => {
   const [formDescription, setFormDescription] = useState('');
   const [formSizes, setFormSizes] = useState('S, M, L, XL');
   const [formColors, setFormColors] = useState('Noir Black (#111111), Royal Gold (#d4af37)');
-  const [formImages, setFormImages] = useState('/src/assets/images/category_men_collection_1793383735508.jpg');
+  const [formImages, setFormImages] = useState('/images/category_men_collection.jpg');
   const [formFabric, setFormFabric] = useState('100% Egyptian Cotton');
   const [formIsFeatured, setFormIsFeatured] = useState(false);
   const [formIsNewArrival, setFormIsNewArrival] = useState(false);
@@ -222,7 +222,7 @@ export const AdminDashboardView: React.FC = () => {
         description: formDescription,
         sizes: sizesParsed,
         colors: colorsParsed,
-        images: imagesParsed.length ? imagesParsed : ['/src/assets/images/category_men_collection_1793383735508.jpg'],
+        images: imagesParsed.length ? imagesParsed : ['/images/category_men_collection.jpg'],
         fabric: formFabric,
         isFeatured: formIsFeatured,
         isNewArrival: formIsNewArrival,
